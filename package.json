@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "cross-env": "^7.0.3",
+        "express": "^4.17.1",
         "jquery-mask-plugin": "^1.14.16"
     }
 }
