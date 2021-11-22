@@ -34,7 +34,30 @@ jQuery(function() {
             return false;
         },
     });
+
+    $('#qty').on("change", () => {
+        let harga_modal = decode_money($('#harga_modal').val());
+        let harga_jual = decode_money($('#harga_jual').val());
+        console.log(harga_modal + " " + harga_jual);
+        console.log($('#qty').val());
+
+        let total_modal = encode_money(harga_modal * Number($('#qty').val()));
+        let total_jual = encode_money(harga_jual * Number($('#qty').val()));
+        console.log(total_modal);
+        console.log(total_jual);
+
+        $('#total_modal').val(total_modal);
+        $('#total_harga').val(total_jual);
+    });
 });
+
+function encode_money(money) {
+    return Intl.NumberFormat('id-ID').format(money);
+}
+
+function decode_money(money) {
+    return Number(money.toString().split('.').join(''));
+}
 
 function testkuy() {
     console.log("TESTING");

@@ -25,6 +25,7 @@
                         <th class="text-center align-middle">Total Stok</th>
                         <th class="text-center align-middle">Stok Terjual</th>
                         <th class="text-center align-middle">Stok Tersisa</th>
+                        <th class="text-center align-middle">Fungsi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,17 +38,24 @@
                         <td class="text-center">{{$barang->stoks->qty + $barang->terjual}}</td>
                         <td class="text-center">{{$barang->terjual}}</td>
                         <td class="text-center">{{$barang->stoks->qty}}</td>
+                        <td class="text-center">
+                            <a href="/barang/{{$barang->_id}}/edit">
+                                <button class="btn btn-info btn-sm"><i class="fas fa-edit"></i></button>
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
+                @if ($barangs->hasPages())
                 <tfoot>
                     <tr>
                         {{-- <td colspan="6" align="right">barangs</td> --}}
-                        <td colspan="6">
+                        <td colspan="8">
                             <div class="float-right">{{ $barangs->links() }}</div>
                         </td>
                     </tr>
                 </tfoot>
+                @endif
             </table>
         </div>
     </div>

@@ -14,6 +14,7 @@ class Penjualan extends Moloquent
     protected $collection = 'penjualans';
 
     protected $fillable = [
+        'transaksi_stok_id',
         'nama_barang',
         'harga_modal',
         'total_harga',

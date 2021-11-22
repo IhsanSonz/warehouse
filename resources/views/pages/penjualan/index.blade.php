@@ -6,6 +6,7 @@
         <div class="card-header flex d-flex justify-content-between align-items-center">
             <h2 class="my-auto font-weight-bold">Penjualan</h2>
             <nav class="navbar navbar-light bg-light row d-flex">
+                <a href="/penjualan/create"><div class="btn btn-primary mr-3 text-uppercase">Penjualan Baru</div></a>
                 <form class="form-inline" action="/penjualan" method="GET">
                     <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search Nama"
                         aria-label="Search" size="40" value="{{$search}}">
@@ -41,6 +42,7 @@
                     </tr>
                     @endforeach
                 </tbody>
+                @if ($penjualans->hasPages())
                 <tfoot>
                     <tr class="bg-gray-700">
                         <td colspan="6" class="p-4 rounded-b-lg">
@@ -48,6 +50,7 @@
                         </td>
                     </tr>
                 </tfoot>
+                @endif
             </table>
         </div>
     </div>

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stok;
+use App\Models\TransaksiStok;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PenjualanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $penjualans = Penjualan::with('transaksi_stoks')
@@ -32,75 +30,78 @@ class PenjualanController extends Controller
 
         // return dd($penjualans);
 
-        return view('pages.penjualan', [
-            'asset' => 'barang/barang',
+        return view('pages.penjualan.index', [
+            'asset' => 'penjualan/penjualan',
             'search'        => $request->s,
             'penjualans'    => $penjualans,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $tgl = date('d/m/Y');
+        $time = date('H:i');
+        return view('pages.penjualan.create', [
+            'asset' => 'penjualan/penjualan',
+            'tgl' => $tgl,
+            'time' => $time,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        var_dump($request->tgl_transaksi . ' ' . $request->waktu_transaksi);
+        $tgl_transaksi = Carbon::createFromFormat('d/m/Y H:i', $request->tgl_transaksi . ' ' . $request->waktu_transaksi);
+        var_dump($tgl_transaksi->toDateTimeString());
+
+        $total_modal = intval(implode('', explode('.', $request->total_modal)));
+        $total_harga = intval(implode('', explode('.', $request->total_harga)));
+
+        $barang_id = $request->barang_id;
+
+        $stok = Stok::where('barang_id', $barang_id)->latest()->first();
+        $stok->qty = intval($stok->qty) - intval($request->qty);
+        $stok->save();
+        $stok_id = $stok->_id;
+
+        $trans_stok = new TransaksiStok;
+        $trans_stok->stok_id = $stok_id;
+        $trans_stok->qty = $request->qty;
+        $trans_stok->is_keluar = true;
+        $trans_stok->tgl_transaksi = $tgl_transaksi->toDateTimeString();
+        $trans_stok->note = "Barang terjual";
+        $trans_stok->save();
+        $trans_stok_id = $trans_stok->_id;
+        var_dump($trans_stok->_id);
+
+        $penjualan = new Penjualan;
+        $penjualan->transaksi_stok_id = $trans_stok_id;
+        $penjualan->nama_barang = $request->nama_barang;
+        $penjualan->harga_modal = $total_modal;
+        $penjualan->total_harga = $total_harga;
+        $penjualan->note = $request->note;
+        $penjualan->save();
+
+
+        return redirect('/penjualan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Penjualan $penjualan)
+    public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penjualan $penjualan)
+    public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Penjualan $penjualan)
+    public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Penjualan $penjualan)
+    public function destroy($id)
     {
         //
     }

@@ -73,7 +73,9 @@ class BarangController extends Controller
     public function create()
     {
         return view('pages.barang.create', [
-            'asset' => 'barang/barang'
+            'asset' => 'barang/barang',
+            'target' => 'store',
+            'method' => 'POST',
         ]);
     }
 
@@ -107,22 +109,48 @@ class BarangController extends Controller
         return redirect('/barang');
     }
 
-    public function show(Barang $barang)
+    public function show($id)
     {
         //
     }
 
-    public function edit(Barang $barang)
+    public function edit($id)
     {
-        //
+        $barang = Barang::find($id);
+
+        return view('pages.barang.create', [
+            'asset' => 'barang/barang',
+            'target' => $id.'/update',
+            'method' => 'PUT',
+            'barang' => $barang,
+        ]);
     }
 
-    public function update(Request $request, Barang $barang)
+    public function update(Request $request, $id)
     {
-        //
+        $harga_modal = intval(implode('', explode('.', $request->harga_modal)));
+        $harga_jual = intval(implode('', explode('.', $request->harga_jual)));
+        $updated_at = Carbon::now()->toISOString();
+        // var_dump($updated_at);
+
+        $barang = Barang::find($id);
+        // dump($barang);
+
+        $barang->nama = $request->nama;
+        $barang->harga_modal = $harga_modal;
+        $barang->harga_jual = $harga_jual;
+        $barang->deskripsi = $request->deskripsi;
+        $barang->note = $request->note;
+        $barang->updated_at = $updated_at;
+        $barang->save();
+        // dump($barang);
+
+        // die();
+
+        return redirect('/barang');
     }
 
-    public function destroy(Barang $barang)
+    public function destroy($id)
     {
         //
     }

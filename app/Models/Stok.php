@@ -14,6 +14,7 @@ class Stok extends Moloquent
     protected $collection = 'stoks';
 
     protected $fillable = [
+        'stok_id',
         'qty',
         'note',
     ];

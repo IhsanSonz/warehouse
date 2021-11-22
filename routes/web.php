@@ -23,15 +23,19 @@ Route::get('home', [Controller\HomeController::class, 'index'])->name('home');
 Route::get('barang', [Controller\BarangController::class, 'index'])->name('barang');
 Route::get('barang/create', [Controller\BarangController::class, 'create'])->name('barang.create');
 Route::post('barang/store', [Controller\BarangController::class, 'store'])->name('barang.store');
+Route::get('barang/{id}/edit', [Controller\BarangController::class, 'edit'])->name('barang.edit');
+Route::put('barang/{id}/update', [Controller\BarangController::class, 'update'])->name('barang.update');
+Route::post('barang/get-barang', [Controller\BarangController::class, 'getBarang'])->name('get-barang');
 
 Route::get('stok', [Controller\StokController::class, 'index'])->name('stok');
 Route::get('stok/create', [Controller\StokController::class, 'create'])->name('stok.create');
 Route::post('stok/store', [Controller\StokController::class, 'store'])->name('stok.store');
-Route::post('stok/barang', [Controller\BarangController::class, 'getBarang'])->name('barang');
 
 Route::get('report', [Controller\BarangController::class, 'index'])->name('report');
 
 Route::get('penjualan', [Controller\PenjualanController::class, 'index'])->name('penjualan');
+Route::get('penjualan/create', [Controller\PenjualanController::class, 'create'])->name('penjualan.create');
+Route::post('penjualan/store', [Controller\PenjualanController::class, 'store'])->name('penjualan.store');
 
 
 Route::get('test', [Controller\TransaksiStokController::class, 'index'])->name('test');

@@ -74,14 +74,8 @@ class StokController extends Controller
         // dd($stok);
         // dd($stok->save());
 
-        try {
-            \DB::beginTransaction();
-            $trans_stok->save();
-            $stok->save();
-            \DB::commit();
-        } catch (\Throwable $th) {
-            \DB::rollback();
-        }
+        $trans_stok->save();
+        $stok->save();
 
         return redirect('/stok');
     }

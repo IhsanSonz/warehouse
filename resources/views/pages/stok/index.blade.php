@@ -40,6 +40,7 @@
                     </tr>
                     @endforeach
                 </tbody>
+                @if ($stoks->hasPages())
                 <tfoot>
                     <tr class="bg-gray-700">
                         <td colspan="6" class="p-4 rounded-b-lg">
@@ -47,6 +48,7 @@
                         </td>
                     </tr>
                 </tfoot>
+                @endif
             </table>
         </div>
     </div>

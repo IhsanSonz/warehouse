@@ -14,6 +14,7 @@ class TransaksiStok extends Moloquent
     protected $collection = 'transaksi_stoks';
 
     protected $fillable = [
+        'transaksi_stok_id',
         'qty',
         'is_keluar',
         'tgl_transaksi',
