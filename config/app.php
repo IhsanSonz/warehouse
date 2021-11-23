@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+                       Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -177,6 +178,10 @@ return [
 
         // MongoDB
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+
+        // Excel export
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -234,6 +239,11 @@ return [
 
         // MongoDB Eloquent
         'Moloquent' => Jenssegers\Mongodb\Eloquent\Model::class,
+
+        // Excel export
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'HTML' => Collective\Html\HtmlFacade::class,
 
     ],
 

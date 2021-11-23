@@ -20,12 +20,15 @@ Route::get('/', function () {
 
 Route::get('home', [Controller\HomeController::class, 'index'])->name('home');
 
-Route::get('barang', [Controller\BarangController::class, 'index'])->name('barang');
-Route::get('barang/create', [Controller\BarangController::class, 'create'])->name('barang.create');
-Route::post('barang/store', [Controller\BarangController::class, 'store'])->name('barang.store');
-Route::get('barang/{id}/edit', [Controller\BarangController::class, 'edit'])->name('barang.edit');
-Route::put('barang/{id}/update', [Controller\BarangController::class, 'update'])->name('barang.update');
-Route::post('barang/get-barang', [Controller\BarangController::class, 'getBarang'])->name('get-barang');
+Route::prefix('barang')->name('barang')->group(function () {
+    Route::get('/', [Controller\BarangController::class, 'index']);
+    Route::get('create', [Controller\BarangController::class, 'create'])->name('.create');
+    Route::post('store', [Controller\BarangController::class, 'store'])->name('.store');
+    Route::get('{id}/edit', [Controller\BarangController::class, 'edit'])->name('.edit');
+    Route::put('{id}/update', [Controller\BarangController::class, 'update'])->name('.update');
+    Route::post('get-barang', [Controller\BarangController::class, 'getBarang'])->name('.get-barang');
+    Route::get('/export_excel', [Controller\BarangController::class, 'export_excel'])->name('.export_excel');
+});
 
 Route::get('stok', [Controller\StokController::class, 'index'])->name('stok');
 Route::get('stok/create', [Controller\StokController::class, 'create'])->name('stok.create');

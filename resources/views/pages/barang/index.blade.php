@@ -6,6 +6,7 @@
         <div class="card-header flex d-flex justify-content-between align-items-center">
             <h2 class="my-auto font-weight-bold">Barang</h2>
             <nav class="navbar navbar-light row d-flex">
+                <a href="/barang/export_excel" class="btn btn-success mx-3 text-uppercase" target="_blank">EXPORT EXCEL</a>
                 <a href="/barang/create"><div class="btn btn-primary mr-3 text-uppercase">NEW ITEM</div></a>
                 <form class="form-inline" action="/barang" method="GET">
                     <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search Nama"

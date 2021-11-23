@@ -7,6 +7,8 @@ use App\Models\Barang;
 use App\Models\Stok;
 use App\Models\TransaksiStok;
 use Illuminate\Http\Request;
+use App\Exports\BarangExport;
+use Excel;
 
 class BarangController extends Controller
 {
@@ -38,7 +40,7 @@ class BarangController extends Controller
 
         // dd($barangs);
 
-        return view('pages.barang.index', [
+        return view('exports.barang.index', [
             'asset'     => 'barang/barang',
             'search'    => $request->s,
             'barangs'   => $barangs,
@@ -113,6 +115,11 @@ class BarangController extends Controller
     {
         //
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new BarangExport, 'barang.xlsx');
+	}
 
     public function edit($id)
     {
