@@ -40,7 +40,7 @@ class BarangController extends Controller
 
         // dd($barangs);
 
-        return view('exports.barang.index', [
+        return view('pages.barang.index', [
             'asset'     => 'barang/barang',
             'search'    => $request->s,
             'barangs'   => $barangs,
